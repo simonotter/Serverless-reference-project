@@ -9,6 +9,8 @@ const groupsTable = process.env.GROUPS_TABLE;
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     
+    console.log('Processing event: ', event);
+    
     const result = await docClient.scan({
       TableName: groupsTable
     }).promise();
