@@ -3,9 +3,7 @@ import 'source-map-support';
 import * as AWS from 'aws-sdk';
 
 const docClient = new AWS.DynamoDB.DocumentClient();
-
 const groupsTable = process.env.GROUPS_TABLE;
-
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     
