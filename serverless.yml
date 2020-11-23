@@ -21,6 +21,18 @@ provider:
         # - dynamodb:GetItem
       Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.GROUPS_TABLE}
 
+custom:
+  documentation:
+    api:
+      info:
+        version: v1.0.0
+        title: Udagram API
+        description: Severless application for iamges sharing
+      models:
+        - name: GroupRequest
+          contentType: application/json
+          schema: ${file(models/create-group-request.json)}
+
 functions:
   GetGroups:
     handler: src/lambda/http/getGroups.handler
@@ -37,9 +49,24 @@ functions:
           method: post
           path: groups
           cors: true
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Create a new group
+            description: Create a new group
+            requestModels:
+              'application/json': GroupRequest
 
 resources:
   Resources:
+    RequestBodyValidator:
+      Type: AWS::ApiGateway::RequestValidator
+      Properties:
+        Name: 'request-body-validator'
+        RestApiId:
+          Ref: ApiGatewayRestApi
+        ValidateRequestBody: true
+        ValidateRequestParameters: false
+
     GroupsDynamoDBTable:
       Type: AWS::DynamoDB::Table
       Properties:
@@ -68,17 +95,7 @@ resources:
 #         - dynamodb:Query
 #       Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.IMAGES_TABLE}/index/${self:provider.environment.IMAGE_ID_INDEX}
 
-# custom:
-#   documentation:
-#     api:
-#       info:
-#         version: v1.0.0
-#         title: Udagram API
-#         description: Serverless application for images sharing
-#     models:
-#       - name: GroupRequest
-#         contentType: application/json
-#         schema: ${file(models/create-group-request.json)}
+
 
 
 
