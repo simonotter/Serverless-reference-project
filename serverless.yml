@@ -14,6 +14,7 @@ provider:
   environment:
     GROUPS_TABLE: Groups-${self:provider.stage}
     IMAGES_TABLE: Images-${self:provider.stage}
+    IMAGE_ID_INDEX: ImageIdIndex
 
   iamRoleStatements:
     - Effect: Allow
@@ -26,6 +27,10 @@ provider:
       Action:
         - dynamodb:Query
       Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.IMAGES_TABLE}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.IMAGES_TABLE}/index/${self:provider.environment.IMAGE_ID_INDEX}
 
 custom:
   documentation:
@@ -70,6 +75,14 @@ functions:
           path: groups/{groupId}/images
           cors: true
 
+  GetImage:
+    handler: scr/lambda/http/getImage.handler
+    events:
+        - http:
+            method: get
+            path: images/{imageId}
+            cors: true
+
 resources:
   Resources:
 
@@ -103,61 +116,19 @@ resources:
             AttributeType: S
           - AttributeName: timestamp
             AttributeType: S
-#           - AttributeName: imageId
-#             AttributeType: S
+          - AttributeName: imageId
+            AttributeType: S
         KeySchema:
           - AttributeName: groupId
             KeyType: HASH
           - AttributeName: timestamp
             KeyType: RANGE
+        GlobalSecondaryIndexes:
+          - IndexName: ${self:provider.environment.IMAGE_ID_INDEX}
+            KeySchema:
+            - AttributeName: imageId
+              KeyType: HASH
+            Projection:
+              ProjectionType: ALL
         BillingMode: PAY_PER_REQUEST
         TableName: ${self:provider.environment.IMAGES_TABLE}
-#         GlobalSecondaryIndexes:
-#           - IndexName: ${self:provider.environment.IMAGE_ID_INDEX}
-#             KeySchema:
-#             - AttributeName: imageId
-#               KeyType: HASH
-#             Projection:
-#               ProjectionType: ALL
-
-
-
-#   environment:
-#     IMAGE_ID_INDEX: ImageIdIndex
-
-#   iamRoleStatements:
-#     - Effect: Allow
-#       Action:
-#         - dynamodb:Query
-#       Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.IMAGES_TABLE}/index/${self:provider.environment.IMAGE_ID_INDEX}
-
-
-
-
-
-#   CreateGroup:
-#     handler: src/lambda/http/createGroup.handler
-#     events:
-#       - http:
-#           method: post
-#           path: groups
-#           cors: true
-#           reqValidatorName: RequestBodyValidator
-#           documentation:
-#             summary: Create a new group
-#             description: Create a new group
-#             requestModels:
-#               'application/json': GroupRequest
-
-#   GetImages:
-#     handler: src/lambda/http/getImages.handler
-#     events:
-#       - http:
-#           method: get
-#           path: groups/{groupId}/images
-#           cors: true
-
-#   CreateImage:
-#     handler: src/lambda/http/createImage.handler
-
-
