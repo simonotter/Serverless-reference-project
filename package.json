@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "serverless": "^2.12.0",
-    "source-map-support": "^0.5.10"
+    "source-map-support": "^0.5.19"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.17",
