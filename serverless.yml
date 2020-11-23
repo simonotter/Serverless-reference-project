@@ -64,7 +64,7 @@ functions:
           documentation:
             summary: Create a new group
             description: Create a new group
-            requestModels:
+            requestModel:
               'application/json': GroupRequest
 
   GetImages:
