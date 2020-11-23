@@ -27,7 +27,7 @@ functions:
     events:
       - http:
           method: get
-          paths: groups
+          path: groups
           cors: true
 
 resources:
