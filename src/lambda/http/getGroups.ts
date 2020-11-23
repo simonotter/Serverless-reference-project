@@ -1,5 +1,7 @@
 import { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } from 'aws-lambda';
-import 'source-map-support';
+// import 'source-map-support';
+require('source-map-support').install();
+
 import * as AWS from 'aws-sdk';
 
 const docClient = new AWS.DynamoDB.DocumentClient();
