@@ -76,7 +76,7 @@ functions:
           cors: true
 
   GetImage:
-    handler: scr/lambda/http/getImage.handler
+    handler: src/lambda/http/getImage.handler
     events:
         - http:
             method: get
