@@ -33,6 +33,8 @@ provider:
       Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.IMAGES_TABLE}/index/${self:provider.environment.IMAGE_ID_INDEX}
 
 custom:
+  webpack:
+    includeModules: true
   documentation:
     api:
       info:
