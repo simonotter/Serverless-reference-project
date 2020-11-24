@@ -48,7 +48,7 @@ custom:
           schema: ${file(models/create-group-request.json)}
         - name: ImageRequest
           contentType: application/json
-          schema: ${file(models/create-image.request.json)}
+          schema: ${file(models/create-image-request.json)}
 
 functions:
   GetGroups:
