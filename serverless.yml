@@ -50,10 +50,10 @@ custom:
         title: Udagram API
         description: Severless application for iamges sharing
       models:
-        - name: GroupRequest
+        - name: "GroupRequest"
           contentType: application/json
           schema: ${file(models/create-group-request.json)}
-        - name: ImageRequest
+        - name: "ImageRequest"
           contentType: application/json
           schema: ${file(models/create-image-request.json)}
 
@@ -77,8 +77,8 @@ functions:
           documentation:
             summary: Create a new group
             description: Create a new group
-            requestModel:
-              'application/json': GroupRequest
+            requestModels:
+              'application/json': "GroupRequest"
 
   GetImages:
     handler: src/lambda/http/getImages.handler
@@ -107,8 +107,8 @@ functions:
           documentation:
             summary: Create a new image
             description: Create a new image
-            requestModel:
-              'application/json': ImageRequest
+            requestModels:
+              'application/json': "ImageRequest"
 
   SendUploadNotifications:
     handler: src/lambda/s3/sendNotifications.handler
