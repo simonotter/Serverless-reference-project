@@ -16,6 +16,7 @@ provider:
     IMAGES_TABLE: Images-${self:provider.stage}
     IMAGE_ID_INDEX: ImageIdIndex
     IMAGES_S3_BUCKET: severless-udagram-images-${self:provider.stage}
+    SIGNED_URL_EXPIRATION: 300
 
   iamRoleStatements:
     - Effect: Allow
@@ -33,6 +34,11 @@ provider:
       Action:
         - dynamodb:Query
       Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.IMAGES_TABLE}/index/${self:provider.environment.IMAGE_ID_INDEX}
+    - Effect: Allow
+      Action:
+        - s3:PutObject
+        - s3:GetObject
+      Resource: arn:aws:s3:::${self.provider.environment.IMAGES_S3_BUCKET}/*
 
 custom:
   webpack:
@@ -71,7 +77,7 @@ functions:
           documentation:
             summary: Create a new group
             description: Create a new group
-            requestModels:
+            requestModel:
               'application/json': GroupRequest
 
   GetImages:
@@ -101,7 +107,7 @@ functions:
           documentation:
             summary: Create a new image
             description: Create a new image
-            requestModels:
+            requestModel:
               'application/json': ImageRequest
 
 
