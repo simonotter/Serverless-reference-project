@@ -2,8 +2,6 @@ import { APIGatewayProxyHandler, APIGatewayProxyEvent, APIGatewayProxyResult } f
 import 'source-map-support/register'
 import * as AWS  from 'aws-sdk'
 import * as uuid from 'uuid'
-import { NumberAttributeValue } from 'aws-sdk/clients/dynamodb'
-
 
 const docClient = new AWS.DynamoDB.DocumentClient()
 
