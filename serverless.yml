@@ -80,12 +80,13 @@ functions:
           method: post
           path: groups
           cors: true
-          reqValidatorName: RequestBodyValidator
           documentation:
-            summary: Create a new group
-            description: Create a new group
-            requestModels:
+            summary: "Create a new group"
+            description: "Create a new group"
+            requestModel:
               'application/json': "GroupRequest"
+          reqValidatorName: RequestBodyValidator
+
 
   GetImages:
     handler: src/lambda/http/getImages.handler
@@ -114,11 +115,16 @@ functions:
           documentation:
             summary: Create a new image
             description: Create a new image
-            requestModels:
+            requestModel:
               'application/json': "ImageRequest"
 
   SendUploadNotifications:
     handler: src/lambda/s3/sendNotifications.handler
+    environment:
+      STAGE: ${self:provider.stage}
+      REGION: ${self:provider.region}
+      API_ID:
+        Ref: WebsocketsApi
 
   ConnectionHandler:
     handler: src/lambda/websocket/connect.handler
