@@ -194,7 +194,7 @@ resources:
     AttachmentsBucket:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: ${self.provider.environment.IMAGES_S3_BUCKET}
+        BucketName: ${self:provider.environment.IMAGES_S3_BUCKET}
         NotificationConfiguration:
           LambdaConfigurations:
           - Event: s3:ObjectCreated:*
