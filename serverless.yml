@@ -3,8 +3,8 @@ service:
 
 plugins:
   - serverless-webpack
-  - serverless-reqvalidator-plugin
   - serverless-aws-documentation
+  - serverless-reqvalidator-plugin
 
 provider:
   name: aws
@@ -56,13 +56,13 @@ custom:
         version: v1.0.0
         title: Udagram API
         description: Severless application for iamges sharing
-      models:
-        - name: "GroupRequest"
-          contentType: application/json
-          schema: ${file(models/create-group-request.json)}
-        - name: "ImageRequest"
-          contentType: application/json
-          schema: ${file(models/create-image-request.json)}
+    models:
+      - name: "GroupRequest"
+        contentType: application/json
+        schema: ${file(models/create-group-request.json)}
+      - name: "ImageRequest"
+        contentType: application/json
+        schema: ${file(models/create-image-request.json)}
 
 functions:
   GetGroups:
@@ -83,7 +83,7 @@ functions:
           documentation:
             summary: "Create a new group"
             description: "Create a new group"
-            requestModel: # deliberately dropped the 's' from requestModels: so that this is ignored to reach next AWS Bucket error
+            requestModels:
               'application/json': "GroupRequest"
           reqValidatorName: RequestBodyValidator
 
@@ -115,7 +115,7 @@ functions:
           documentation:
             summary: Create a new image
             description: Create a new image
-            requestModel: # deliberately dropped the 's' from requestModels: so that this is ignored to reach next AWS Bucket error
+            requestModels:
               'application/json': "ImageRequest"
 
   SendUploadNotifications:
