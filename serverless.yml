@@ -83,7 +83,7 @@ functions:
           documentation:
             summary: "Create a new group"
             description: "Create a new group"
-            requestModel:
+            requestModel: # deliberately dropped the 's' from requestModels: so that this is ignored to reach next AWS Bucket error
               'application/json': "GroupRequest"
           reqValidatorName: RequestBodyValidator
 
@@ -115,7 +115,7 @@ functions:
           documentation:
             summary: Create a new image
             description: Create a new image
-            requestModel:
+            requestModel: # deliberately dropped the 's' from requestModels: so that this is ignored to reach next AWS Bucket error
               'application/json': "ImageRequest"
 
   SendUploadNotifications:
