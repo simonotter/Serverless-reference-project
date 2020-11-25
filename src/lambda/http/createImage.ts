@@ -73,7 +73,7 @@ async function createImage(groupId: string, imageId: string, event: any) {
     timestamp: timestamp,
     imageId: imageId,
     ...newImage,
-    imageUrl: 'https://${bucketName}.s3.amazonaws.com/${imageId}'
+    imageUrl: `https://${bucketName}.s3.amazonaws.com/${imageId}`
   }
 
   console.log('Storing new item:', newItem);
