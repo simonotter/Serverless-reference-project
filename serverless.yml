@@ -138,7 +138,12 @@ functions:
       - websocket:
           route: $disconnect
 
-
+  SyncWithElasticsearch:
+    handler: src/lambda/dynamoDb/elasticSearchSync.handler
+    events:
+      - stream:
+          type: dynamodb
+          arn: !GetAtt ImagesDynamoDBTable.StreamArn
 
 resources:
   Resources:
@@ -189,6 +194,8 @@ resources:
             Projection:
               ProjectionType: ALL
         BillingMode: PAY_PER_REQUEST
+        StreamSpecification:
+          StreamViewType: NEW_IMAGE
         TableName: ${self:provider.environment.IMAGES_TABLE}
 
     WebSocketConnectionsDynamoDBTable:
