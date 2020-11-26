@@ -8,12 +8,15 @@
   },
   "dependencies": {
     "@types/uuid": "^8.3.0",
+    "elasticsearch": "^16.7.1",
+    "http-aws-es": "^6.0.0",
     "serverless": "^2.12.0",
     "source-map-support": "^0.5.19",
     "uuid": "^8.3.1"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.17",
+    "@types/elasticsearch": "^5.0.36",
     "@types/node": "^10.12.18",
     "@types/serverless": "^1.72.5",
     "aws-sdk": "^2.796.0",
