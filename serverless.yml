@@ -293,7 +293,7 @@ resources:
               Resource:
                 !Ref ImagesTopic
               Condition:
-                Arnlike:
+                ArnLike:
                   AWS:SourceArn: arn:aws:s3:::${self:provider.environment.IMAGES_S3_BUCKET}
         Topics:
           - !Ref ImagesTopic
