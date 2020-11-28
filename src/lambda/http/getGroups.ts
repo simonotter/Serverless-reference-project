@@ -1,21 +1,12 @@
 import { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } from 'aws-lambda';
-// import 'source-map-support';
-require('source-map-support').install();
-
-import * as AWS from 'aws-sdk';
-
-const docClient = new AWS.DynamoDB.DocumentClient();
-const groupsTable = process.env.GROUPS_TABLE;
+import 'source-map-support/register'
+import { getAllGroups } from '../../businessLogic/groups';
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     
     console.log('Processing event: ', event);
     
-    const result = await docClient.scan({
-      TableName: groupsTable
-    }).promise();
-    
-    const items = result.Items;
+    const groups = await getAllGroups();
     
     return {
         statusCode: 200,
@@ -23,7 +14,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
             'Access-Control-Allow-Origin': '*'
         },
         body: JSON.stringify({
-            items: items
+            items: groups
         })
     };
 };
