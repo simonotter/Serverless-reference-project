@@ -7,6 +7,9 @@ plugins:
   - serverless-reqvalidator-plugin
   - serverless-plugin-canary-deployments
 
+package:
+  individually: true
+
 provider:
   tracing:
     lambda: true
