@@ -5,6 +5,7 @@ plugins:
   - serverless-webpack
   - serverless-aws-documentation
   - serverless-reqvalidator-plugin
+  - serverless-plugin-canary-deployments
 
 provider:
   name: aws
@@ -62,6 +63,11 @@ provider:
       Action: 
         - kms:Decrypt
       Resource: !GetAtt KMSKey.Arn
+    - Effect: Allow
+      Action:
+        - codedeploy:*
+      Resource:
+        - '*'
 
 custom:
   topicName: ImagesTopic-${self:provider.stage}
@@ -111,6 +117,9 @@ functions:
             requestModels:
               'application/json': "GroupRequest"
           reqValidatorName: RequestBodyValidator
+    deploymentSettings:
+      type: Linear10PercentEvery1Minute
+      alias: Live
 
 
   GetImages:
