@@ -194,14 +194,14 @@ functions:
           route: $disconnect
           
   ### commented out Elasticsearch resource config until have solution for access 
-  # SyncWithElasticsearch:
-  #   environment:
-  #     ES_ENDPOINT: !GetAtt ImagesSearch.DomainEndpoint
-  #   handler: src/lambda/dynamoDb/elasticSearchSync.handler
-  #   events:
-  #     - stream:
-  #         type: dynamodb
-  #         arn: !GetAtt ImagesDynamoDBTable.StreamArn
+  SyncWithElasticsearch:
+    environment:
+      ES_ENDPOINT: !GetAtt ImagesSearch.DomainEndpoint
+    handler: src/lambda/dynamoDb/elasticSearchSync.handler
+    events:
+      - stream:
+          type: dynamodb
+          arn: !GetAtt ImagesDynamoDBTable.StreamArn
 
 resources:
   Resources:
@@ -393,28 +393,28 @@ resources:
     
 
     ### commented out Elasticsearch resource config until have solution for access 
-    # ImagesSearch:
-    #   Type: AWS::Elasticsearch::Domain
-    #   Properties:
-    #     ElasticsearchVersion: '6.3'
-    #     DomainName: images-search-${self:provider.stage}
-    #     ElasticsearchClusterConfig:
-    #       DedicatedMasterEnabled: false
-    #       InstanceCount: 1
-    #       ZoneAwarenessEnabled: false
-    #       InstanceType: t2.small.elasticsearch
-    #     EBSOptions:
-    #       EBSEnabled: true
-    #       Iops: 0
-    #       VolumeSize: 10
-    #       VolumeType: 'gp2'
+    ImagesSearch:
+      Type: AWS::Elasticsearch::Domain
+      Properties:
+        ElasticsearchVersion: '6.3'
+        DomainName: images-search-${self:provider.stage}
+        ElasticsearchClusterConfig:
+          DedicatedMasterEnabled: false
+          InstanceCount: 1
+          ZoneAwarenessEnabled: false
+          InstanceType: t2.small.elasticsearch
+        EBSOptions:
+          EBSEnabled: true
+          Iops: 0
+          VolumeSize: 10
+          VolumeType: 'gp2'
 
-    #     AccessPolicies:
-    #       Version: '2012-10-17'
-    #       Statement:
-    #         -
-    #           Effect: Allow
-    #           Action: 'es:ESHttp*'            
-    #           Principal:
-    #             AWS: !Sub arn:aws:iam::474887328802:user/simono
-    #           Resource: !Sub "arn:aws:es:${self:provider.region}:${AWS::AccountId}:domain/images-search-${self:provider.stage}/*"
+        AccessPolicies:
+          Version: '2012-10-17'
+          Statement:
+            -
+              Effect: Allow
+              Action: 'es:ESHttpGet'            
+              Principal:
+                AWS: !Sub arn:aws:iam::474887328802:user/simono
+              Resource: !Sub arn:aws:es:${self:provider.region}:${AWS::AccountId}:domain/images-search-${self:provider.stage}/*
