@@ -2,10 +2,6 @@
   "name": "service-10-udagram-app",
   "version": "1.0.0",
   "description": "Serverless webpack example using Typescript",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/simonotter/Serverless-reference-project.git"
-  },
   "main": "handler.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,7 +10,7 @@
     "@middy/core": "^1.4.0",
     "@types/uuid": "^8.3.0",
     "core-js": "^2.6.12",
-    "elasticsearch": "^15.5.0",
+    "elasticsearch": "^16.7.1",
     "http-aws-es": "^6.0.0",
     "jimp": "^0.16.1",
     "jsonwebtoken": "^8.5.1",
@@ -31,8 +27,6 @@
     "aws-sdk": "^2.796.0",
     "fork-ts-checker-webpack-plugin": "^3.0.1",
     "serverless-aws-documentation": "^1.1.0",
-    "serverless-dynamodb-local": "^0.2.10",
-    "serverless-offline": "^6.8.0",
     "serverless-reqvalidator-plugin": "^1.0.3",
     "serverless-webpack": "^5.2.0",
     "ts-loader": "^5.3.3",
