@@ -7,6 +7,8 @@ plugins:
   - serverless-reqvalidator-plugin
   - serverless-plugin-canary-deployments
   - serverless-iam-roles-per-function
+  - serverless-dynamodb-local
+  - serverless-offline
 
 # TODO Commented out to reduce build time during development
 # package:
@@ -79,6 +81,17 @@ provider:
 
 custom:
   topicName: ImagesTopic-${self:provider.stage}
+  serverless-offline:
+    port: 3003
+
+  dynamodb:
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
+    stages:
+      - dev
+
   webpack:
     includeModules: true
   documentation:
@@ -430,7 +443,8 @@ resources:
           Statement:
             -
               Effect: Allow
-              Action: 'es:ESHttpGet'            
+              Action: 'es:ESHttp*'            
               Principal:
-                AWS: !Sub arn:aws:iam::474887328802:user/simono
+                #AWS: !Sub arn:aws:iam::474887328802:user/simono
+                AWS: '*'
               Resource: !Sub arn:aws:es:${self:provider.region}:${AWS::AccountId}:domain/images-search-${self:provider.stage}/*
