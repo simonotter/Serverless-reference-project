@@ -8,8 +8,9 @@ plugins:
   - serverless-plugin-canary-deployments
   - serverless-iam-roles-per-function
 
-package:
-  individually: true
+# TODO Commented out to reduce build time during development
+# package:
+#   individually: true
 
 provider:
   tracing:
