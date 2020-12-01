@@ -82,7 +82,7 @@ provider:
 custom:
   topicName: ImagesTopic-${self:provider.stage}
   serverless-offline:
-    port: 3003
+    httpPort: 3003
 
   dynamodb:
     start:
@@ -276,8 +276,6 @@ resources:
           - AttributeName: timestamp
             AttributeType: S
           - AttributeName: imageId
-            AttributeType: S
-          - AttributeName: title
             AttributeType: S
         KeySchema:
           - AttributeName: groupId
